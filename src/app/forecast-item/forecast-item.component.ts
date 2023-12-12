@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ForecastDaysService } from '../shared/forecast-days.service';
+
 import { forecastData } from '../forecastData';
 
 @Component({
@@ -8,13 +8,11 @@ import { forecastData } from '../forecastData';
   styleUrls: ['./forecast-item.component.css'],
 })
 export class ForecastItemComponent implements OnInit {
-  @Input() day=''
-  @Input() forecast:forecastData={
-    temperature:'',
-    weather_description:''
-  }
+  @Input() day = '';
+  @Input() forecast: forecastData = {
+    temperature: '',
+    weather_description: '',
+  };
   constructor() {}
-  ngOnInit(): void {
-   
-  }
+  ngOnInit(): void {}
 }

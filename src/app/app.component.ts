@@ -12,13 +12,14 @@ import { range } from 'rxjs';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
-  weather!: weatherData;
   title = 'weather_project';
+  weather!: weatherData;
+  days: string[] = [];
+  forecastWeather: forecastData[] = [];
   city = '';
   clicked = false;
   loaded = false;
-  days: string[] = [];
-  forecastWeather: forecastData[] = [];
+
   constructor(
     private weatherService: WeatherApiService,
     private forecastDaysService: ForecastDaysService
@@ -48,16 +49,16 @@ export class AppComponent implements OnInit {
   getForecast() {
     this.days = this.forecastDaysService.getDays();
     this.weatherService.getForecast(this.weather.city).subscribe((u: any) => {
-      for (let i = 0; i < 5; i++) {
+      console.log(u);
+      for (let i = 0; i <40; i=i+8) {
+        console.log(u.list[i]);
         const temp: forecastData = {
+          
           weather_description: u.list[i].weather[0].description,
           temperature: u.list[i].main.temp,
         };
         this.forecastWeather.push(temp);
       }
-
-      console.log(u);
-      console.log(this.weather.city);
     });
   }
 }
