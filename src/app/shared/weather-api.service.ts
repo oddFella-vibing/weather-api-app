@@ -9,50 +9,25 @@ export class WeatherApiService {
   weatherRes!: weatherData;
   forecastREs!: forecastData;
 
+  // 8e2ed979b5b418b54ad37a37e105a113
   current_API_ENDPOINT =
     'http://api.weatherstack.com/current?access_key=6390cec280216809986ad1972aa1dbdd&query=';
-  forecast_API_ENDPOINT =
-    'http://api.weatherstack.com/forecast?access_key=6390cec280216809986ad1972aa1dbdd&query=';
+  forecast_API_ENDPOINT = 'https://api.openweathermap.org/data/2.5/forecast?q=';
   constructor(public httpclient: HttpClient) {}
 
   getCurrentWeather(city: string) {
-    return this.httpclient.get(this.current_API_ENDPOINT + city);
+    return this.httpclient.get(
+      this.current_API_ENDPOINT +
+        city +
+        '&appid=8e2ed979b5b418b54ad37a37e105a113'
+    );
   }
-  getForecast() {
-    this.httpclient
-      .get(this.forecast_API_ENDPOINT + 'London' + '&forecast_days=5')
-      .subscribe((res: any) => {
-        console.log(res);
-        //   this.forecastREs={
-        //     temperature:'',
-        //     weather_description:''
-        //   }
-        //  return this.forecastREs;
-      });
+  getForecast(city: string) {
+    return this.httpclient.get(
+      this.forecast_API_ENDPOINT +
+        city +
+        '&units=metric&appid=8e2ed979b5b418b54ad37a37e105a113'
+    );
   }
-  getMockData() {
-    const mockData: forecastData[] = [
-      {
-        temperature: '15',
-        weather_description: 'sunny',
-      },
-      {
-        temperature: '16',
-        weather_description: 'sunny',
-      },
-      {
-        temperature: '17',
-        weather_description: 'sunny',
-      },
-      {
-        temperature: '15',
-        weather_description: 'rain',
-      },
-      {
-        temperature: '18',
-        weather_description: 'sunny',
-      },
-    ];
-    return mockData;
-  }
+ 
 }

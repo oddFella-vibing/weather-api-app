@@ -3,6 +3,8 @@ import { WeatherApiService } from './shared/weather-api.service';
 import { weatherData } from './weatherData';
 import { ForecastDaysService } from './shared/forecast-days.service';
 import { forecastData } from './forecastData';
+import { HttpClient } from '@angular/common/http';
+import { range } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -21,11 +23,9 @@ export class AppComponent implements OnInit {
     private weatherService: WeatherApiService,
     private forecastDaysService: ForecastDaysService
   ) {}
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
+
   getWeather() {
-    this.forecastWeather = [];
     this.clicked = true;
     this.weatherService.getCurrentWeather(this.city).subscribe((u: any) => {
       this.weather = {
@@ -38,7 +38,7 @@ export class AppComponent implements OnInit {
         wind_speed: u.current.wind_speed,
         weather_icons: u.current.weather_icons,
       };
-     
+      console.log(u);
       this.loaded = true;
       this.clicked = false;
       this.city = '';
@@ -47,6 +47,17 @@ export class AppComponent implements OnInit {
   }
   getForecast() {
     this.days = this.forecastDaysService.getDays();
-    this.forecastWeather = this.weatherService.getMockData();
+    this.weatherService.getForecast(this.weather.city).subscribe((u: any) => {
+      for (let i = 0; i < 5; i++) {
+        const temp: forecastData = {
+          weather_description: u.list[i].weather[0].description,
+          temperature: u.list[i].main.temp,
+        };
+        this.forecastWeather.push(temp);
+      }
+
+      console.log(u);
+      console.log(this.weather.city);
+    });
   }
 }

@@ -88,12 +88,17 @@ body {
   width: 20%;
 }
 .forecast-day .card {
+  height: 100%;
   text-align: center;
   padding: 0px;
   color: rgb(202, 202, 202);
 }
-/* .forecast-day-day{
-  /* font-size: x-small; */
+.forecast-day .card .card-overlay{
+ height: 100%;
+}
+.forecast-day-day{
+  opacity: 0.8;
+}
 
 .forecast-day-small {
   font-size: x-small;

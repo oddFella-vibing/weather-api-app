@@ -1,7 +1,7 @@
 <div class="card" *ngIf="forecast">
   <div class="card-overlay">
     <p class="forecast-day-day">{{ day }}</p>
-    <h5>{{ forecast.temperature }}&deg;C</h5>
+    <h6 style="font-weight: bold;" >{{ forecast.temperature }}&deg;C</h6>
     <p class="forecast-day-small">{{ forecast.weather_description }}</p>
   </div>
 </div>
